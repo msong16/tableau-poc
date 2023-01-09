@@ -5,9 +5,8 @@ import {Tableau} from './components/Tableau'
 
 function App() {
   return (
-    <div>
-      <h2>APP</h2>
-      <Tableau/>
+    <div>  
+      <Tableau />
     </div>
     
   );

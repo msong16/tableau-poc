@@ -11,25 +11,28 @@ export const Tableau = ()=>{
     var viz;
     const containerDiv = document.getElementById("vizContainer");
     const vizUrl = "https://public.tableau.com/views/Superstore_24/Overview";
-    
-    if(viz){
-        viz.dispose();
+    let existingViz = window.tableau.VizManager.getVizs()[0];
+
+    if(existingViz){
+        existingViz.dispose();
     }
-    viz = new window.tableau.Viz(containerDiv, vizUrl)
+     viz = new window.tableau.Viz(containerDiv, vizUrl)
     
-    const ref = useRef(null);
+    //const ref = useRef(null);
+    const options = {}
     
-    const initViz = () =>{
-        const containerDiv = document.getElementById("container")
-        const viz = new window.tableau.Viz(containerDiv, vizUrl)
-    }
+    // const initViz = () =>{
+    //     const containerDiv = document.getElementById("container")
+    //     const viz = new window.tableau.Viz(containerDiv, vizUrl)
+    // }
 
     //const viz = new window.tableau.Viz(ref, vizUrl, options);
 
     return(
-        
-            
-            <div ref={ref} style={{width:'70%', margin:'auto'}}></div>
+        <div>
+            <h2>Embedded Tableau</h2>
+            {/* <div ref={ref} style={{width:'70%', margin:'auto'}}></div> */}
+        </div>
         
     )
 }
