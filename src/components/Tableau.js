@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.css'
 export const Tableau = ()=>{
@@ -42,30 +43,44 @@ export const Tableau = ()=>{
     }
 }
 */
-     //viz = new window.tableau.Viz(containerDiv, vizUrl, options)
-    //  let viz = document.getElementById('tableauViz');
-    //  let sheet;
-    //  let overview;
-    //  if (viz){
-    //     sheet = viz.workbook.activeSheet;
-    //     console.log(sheet)
-    //  }
-    //  if (sheet){
-    //     overview = sheet.worksheets.find(ws => ws.name =="SaleMap");
-    //  }
-    //  if (overview){
-    //     overview.applyRangeFilterAsync("Order Date", {
-    //         min: new Date(Date.UTC(2013, 3, 1)),
-    //         max: new Date(Date.UTC(2020, 8, 30))
-    //    });
-    //  }
-     
-     useEffect(()=>{
-
-     },[])
-     const useExternalScript = () => {
-        useExternalScripts("https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js")
+    const filterDate = () => {
+        //viz = new window.tableau.Viz(containerDiv, vizUrl, options)
+        let viz = document.getElementById('tableauViz');
+        let sheet;
+        let overview;
+        if (viz){
+           sheet = viz.workbook.activeSheet;
+           console.log(sheet)
+        }
+        if (sheet){
+           overview = sheet.worksheets.find(ws => ws.name =="SaleMap");
+        }
+        if (overview){
+           overview.applyRangeFilterAsync("Order Date", {
+               min: new Date(Date.UTC(2013, 3, 1)),
+               max: new Date(Date.UTC(2020, 8, 30))
+          });
+        }
     }
+    
+     
+    const filterState = () => {
+        let viz = document.getElementById("tableauViz");
+        let sheet;
+        let overview;
+        console.log(viz)
+        if (viz){
+            sheet = viz.workbook.activeSheet;
+            console.log(sheet)
+        }
+        if (sheet){
+            overview = sheet.worksheets.find(ws => ws.name =="SaleMap");
+        }
+        if (overview){
+            overview.applyFilterAsync("State", ["Washington", "Oregon"], "replace");
+        }
+       
+    };
 
     return(
         <div>
@@ -91,15 +106,17 @@ export const Tableau = ()=>{
         </Container>
       </Navbar>
             <h2 style={{marginLeft:'5%', marginTop:'2%', marginBottom:'2%'}}>Embedded Tableau</h2>
+            <Button onClick={filterState}>Apply State Filter</Button>
+            <Button onClick={filterDate}>Apply Date Filter</Button>
             <div style={{display:'flex', alignItems:'center', 
             justifyContent:'center'}}>
                 <tableau-viz id="tableauViz"       
                 src='https://public.tableau.com/views/Superstore_24/Overview'      
                 toolbar="bottom" width="100%" style={{}}>
-                    <viz-filter field="State" value="Florida"> </viz-filter>  
+                    {/* <viz-filter field="State" value="Florida"> </viz-filter>   */}
                 </tableau-viz>
             </div>
-            
+           
             
         </div>
         
